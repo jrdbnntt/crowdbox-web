@@ -6,16 +6,16 @@
   "repository": "dasd",
   "main": "server.js",
   "dependencies": {
+    "email-validator": "~1.0.1",
     "express": "~4.11.2",
-    "jade": "~1.9.2",
     "fluent-ffmpeg": "^2.0.0-rc3",
+    "jade": "~1.9.2",
     "moment": "*",
     "promises": "^0.2.5",
     "q": "^1.1.2",
+    "socket.io": "^1.3.3",
     "youtube-node": "^1.1.2",
-    "ytdl-core": "*",
-
-    "email-validator":"~1.0.1"
+    "ytdl-core": "*"
   },
   "devDependencies": {
     "coffee-script": "~1.9.0"
