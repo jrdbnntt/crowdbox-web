@@ -8,12 +8,14 @@
   "dependencies": {
     "express": "~4.11.2",
     "jade": "~1.9.2",
-    "mysql": "~2.5.4",
+    "fluent-ffmpeg": "^2.0.0-rc3",
+    "moment": "*",
+    "promises": "^0.2.5",
+    "q": "^1.1.2",
+    "youtube-node": "^1.1.2",
+    "ytdl-core": "*"
+
     "email-validator": "~1.0.1",
-    "sequelize": "~2.0.0-rc8",
-    "sequelize-cli": "~1.2.0",
-    "mariasql": "~0.1.21",
-    "kaiseki": "~0.5.6"
   },
   "devDependencies": {
     "coffee-script": "~1.9.0"
