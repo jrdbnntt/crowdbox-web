@@ -13,9 +13,8 @@
     "promises": "^0.2.5",
     "q": "^1.1.2",
     "youtube-node": "^1.1.2",
-    "ytdl-core": "*"
-
-    "email-validator": "~1.0.1",
+    "ytdl-core": "*",
+    "email-validator": "~1.0.1"
   },
   "devDependencies": {
     "coffee-script": "~1.9.0"
