@@ -12,6 +12,9 @@ autoload = require '../lib/autoload'
 session = require 'express-session'
 dotenv = require 'dotenv'
 acl = require '../lib/acl'
+dl = require '../lib/youtube-download-mp3'
+search = require '../lib/youtube-search'
+
 emailTemplates = require 'email-templates'
 
 # Configuration

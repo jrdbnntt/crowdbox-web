@@ -9,4 +9,4 @@ module.exports = (app) ->
 		
 		@playlist = (req, res) ->
 			res.render 'public/playlist',
-				title: 'Edit Playlis'
+				title: 'Edit Playlist'

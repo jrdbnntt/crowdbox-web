@@ -7,7 +7,13 @@
   "main": "server.js",
   "dependencies": {
     "express": "~4.11.2",
-    "jade": "~1.9.2"
+    "jade": "~1.9.2",
+    "fluent-ffmpeg": "^2.0.0-rc3",
+    "moment": "*",
+    "promises": "^0.2.5",
+    "q": "^1.1.2",
+    "youtube-node": "^1.1.2",
+    "ytdl-core": "*"
   },
   "devDependencies": {
     "coffee-script": "~1.9.0"
