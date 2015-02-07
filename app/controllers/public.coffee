@@ -25,9 +25,10 @@ module.exports = (app) ->
 				title: 'Sign up'
 		
 		@signup_post = (req, res) ->
+			edisonId = req.body.edison_id
 			data = 
-				first_name: req.body.first_name
-				last_name: req.body.last_name
+				firstName: req.body.first_name
+				lastName: req.body.last_name
 				email: req.body.email
 				password: req.body.password
 				edison_id: req.body.edison_id
@@ -35,35 +36,31 @@ module.exports = (app) ->
 			
 				#Check if email is user TODO
 			console.log JSON.stringify data, undefined, 2
+			
 			if data?
-				sql = "INSERT INTO user " + 
-				'(first_name,last_name,email,password,edison_id) VALUES '+
-				'("'+data.first_name+'","'+data.last_name+'","'+data.password+'",'+data.edison_id+')'
-				# 'WHERE EXISTS(SELECT * FROM edison WHERE edison_id = ' + data.edison_id + ')'
-				console.log sql
-				app.db.con.query sql, (err, result)->
-					if err
-						res.send 
-							success: false
-							message: "Saving errors: " + err
+				#Get Edison, then creat account with it
+				app.kaiseki.getObject 'Edison',
+					where:
+						serialNumber: edisonId
+				, (err, resp, body, success)->
+					if success
+						#make user
+						data.edisonId = body.objectId
+						app.kaiseki.createUser data, (err, resp, body, success)->
+						if success
+							res.send 
+								success: true
+								message: "Account Created!"
+						else 
+							res.send 
+								success: false
+								message: "Problem creating account!"
 						return
 					else
-						#update location
-						sql = "UPDATE edison SET location_name = "+data.location_name+
-						"WHERE edison_id = " + data.edison_id
-						app.db.con.query sql, (err, result)->
-							if err
-								res.send 
-									success: false
-									message: "Saving errors: " + err
-								return
-							else
-								res.send 
-									success: true
-									message: "Save suclcess!"
-				
-				
-				
+						res.send 
+							success: false
+							message: "Invalid Serial Number"
+					return
 			else
 				res.send 
 					success: false

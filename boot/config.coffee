@@ -13,7 +13,7 @@ session = require 'express-session'
 dotenv = require 'dotenv'
 acl = require '../lib/acl'
 emailTemplates = require 'email-templates'
-kaiseki = require 'kaiseki'
+Kaiseki = require 'kaiseki'
 
 # Configuration
 module.exports = (app) ->
@@ -22,6 +22,12 @@ module.exports = (app) ->
 	
 	# Load env
 	dotenv.load()
+	
+	# Create a Parse (Kaiseki) object
+	app.kaiseki = new Kaiseki process.env.PARSE_APP_ID_TEST, 
+	process.env.PARSE_REST_KEY_TEST
+	app.kaiseki.masterKey = process.env.PARSE_MASTER_KEY_TEST
+
 			
 	# Configure app settings
 	env = process.env.NODE_ENV || 'development'
