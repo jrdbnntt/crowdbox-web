@@ -22,11 +22,7 @@ module.exports = (app) ->
 	
 	# Load env
 	dotenv.load()
-	
-	app.models = models
-	
-	# sequelize = new Sequelize(con)
-	
+			
 	# Configure app settings
 	env = process.env.NODE_ENV || 'development'
 	app.set 'port', process.env.PORT || 5000
