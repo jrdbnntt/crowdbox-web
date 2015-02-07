@@ -16,6 +16,7 @@ dl = require '../lib/youtube-download-mp3'
 search = require '../lib/youtube-search'
 
 emailTemplates = require 'email-templates'
+kaiseki = require 'kaiseki'
 
 # Configuration
 module.exports = (app) ->
@@ -24,7 +25,7 @@ module.exports = (app) ->
 	
 	# Load env
 	dotenv.load()
-	
+			
 	# Configure app settings
 	env = process.env.NODE_ENV || 'development'
 	app.set 'port', process.env.PORT || 5000
@@ -50,7 +51,7 @@ module.exports = (app) ->
 	app.use (req,res,next) ->
 		res.locals.session = req.session;
 		next();
-
+	
 	# Create Mandrill object
 	app.mandrill = new Mandrill.Mandrill process.env.MANDRILL_KEY  
 	# Load email template function
@@ -138,11 +139,12 @@ module.exports = (app) ->
 	
 	
 	# Enforce ACL (needs to be last)
-	app.use acl
+	# app.use acl
 	
 	#debug crap
 	console.log 'ENV VARS ->'
-	console.log ("> SECRET=" + process.env.SECRET)
+	console.log "> SECRET=" + process.env.SECRET
+	console.log '> MANDRILL_KEY=' + process.env.MANDRILL_KEY
 	console.log '-------------------------------'
 		
 		

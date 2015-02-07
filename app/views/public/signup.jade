@@ -1,3 +1,30 @@
 extend ../layout
 block content
-	h1 #{title}
+	h1 Sign up
+	
+	.form-group
+		label(for="firstName") First Name:
+		input.form-control(type="text", name='firstName', placeholder="First Name")
+	.form-group
+		label(for="lastName") Last Name:
+		input.form-control(type="text", name='lastName', placeholder="Last Name")
+	.form-group
+		label(for="email") Email:
+		input.form-control(type="email", name='email', placeholder="hurr@durr.io")
+	.form-group
+		label(for="password") Password:
+		input.form-control(type="password", name='password', placeholder="Password")
+	.form-group
+		label(for="passwordRetype") Confirm Password:
+		input.form-control(type="password", name='passwordRetype', placeholder="Password")
+	.form-group
+		label(for="edisonId") CrowdBox Serial:
+		input.form-control(type='text', name='edisonId', placeholder='0123456789')
+	.form-group
+		label(for="locationName") Location Name:
+		input.form-control(type='text', name='locationName', placeholder='All Saint\'s Bar')
+	
+	button.btn.btn-default(name='submit') Submit
+	
+block localJS
+	script(type="text/javascript", src='/js/public/signup.js')
