@@ -4,14 +4,6 @@ module.exports = (app) ->
 	class app.PublicController
 		
 		@index = (req, res) ->
-			#database test
-			sql = 'SELECT * FROM edison'
-			app.db.con.query sql, (err, result) ->
-				if err
-					console.log "DB ERROR: " + err;
-				else
-					console.log JSON.stringify result, undefined, 2
-			
 			res.render 'public/index',
 				title: 'Home'
 		

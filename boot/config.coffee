@@ -13,8 +13,7 @@ session = require 'express-session'
 dotenv = require 'dotenv'
 acl = require '../lib/acl'
 emailTemplates = require 'email-templates'
-mysql = require 'mysql'
-
+kaiseki = require 'kaiseki'
 
 # Configuration
 module.exports = (app) ->
@@ -23,6 +22,10 @@ module.exports = (app) ->
 	
 	# Load env
 	dotenv.load()
+	
+	app.models = models
+	
+	# sequelize = new Sequelize(con)
 	
 	# Configure app settings
 	env = process.env.NODE_ENV || 'development'
@@ -49,18 +52,6 @@ module.exports = (app) ->
 	app.use (req,res,next) ->
 		res.locals.session = req.session;
 		next();
-		
-	# Setup mysql connection (db). Connecting is done implciitly.
-	app.db = 
-		settings:
-			host: process.env.DATABASE_HOSTNAME
-			user: process.env.DATABASE_USERNAME
-			password: process.env.DATABASE_PASSWORD
-			database: process.env.DATABASE_NAME
-	app.db.set = ()->
-		app.db.con = mysql.createConnection app.db.settings
-		console.log '> DB CONNECT: ' + JSON.stringify app.db.settings
-	app.db.set()	
 	
 	# Create Mandrill object
 	app.mandrill = new Mandrill.Mandrill process.env.MANDRILL_KEY  
