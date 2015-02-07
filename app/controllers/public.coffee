@@ -31,35 +31,37 @@ module.exports = (app) ->
 				lastName: req.body.last_name
 				email: req.body.email
 				password: req.body.password
-				edison_id: req.body.edison_id
 				location_name: req.body.location_name
 			
 				#Check if email is user TODO
 			console.log JSON.stringify data, undefined, 2
-			
+			console.log edisonId
 			if data?
 				#Get Edison, then creat account with it
-				app.kaiseki.getObject 'Edison',
+				param = 
 					where:
-						serialNumber: edisonId
-				, (err, resp, body, success)->
+						serial: edisonId
+					order: '-name'
+				app.kaiseki.getObjects 'Edison', param, (err, resp, body, success)->
+					console.log resp
 					if success
 						#make user
-						data.edisonId = body.objectId
+						data.edisonId = edisonId
 						app.kaiseki.createUser data, (err, resp, body, success)->
-						if success
-							res.send 
-								success: true
-								message: "Account Created!"
-						else 
-							res.send 
-								success: false
-								message: "Problem creating account!"
-						return
+							console.log "CALL "+  success
+							if success
+								res.send 
+									success: true
+									message: "Account Created!"
+							else 
+								res.send 
+									success: false
+									message: "Problem creating account!"
+							return
 					else
 						res.send 
 							success: false
-							message: "Invalid Serial Number"
+							message: " Invalid Serial Number " 
 					return
 			else
 				res.send 

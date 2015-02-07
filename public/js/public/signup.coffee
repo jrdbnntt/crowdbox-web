@@ -37,11 +37,11 @@ $('button[name="submit"]').click ()->
 		url: '/signup_post'
 		data: inputs
 		success: (res)->
-			if res.success
-				alert 'Submit success!'
+			if res.success == true
+				alert 'Submit success!' + res.message
 			else
 				alert 'Submission saving error!' + res.message
-]		error: (err)->
+		error: (err)->
 			alert 'Unable to submit!'
 	
 	

@@ -10,7 +10,6 @@ var validInputs;
 
 $('button[name="submit"]').click(function() {
   var inputs, pass1, pass2;
-  console.log('submited!');
   pass1 = $('input[name="password"]').val();
   pass2 = $('input[name="passwordRetype"]').val();
   if (pass1 !== pass2) {
@@ -32,11 +31,11 @@ $('button[name="submit"]').click(function() {
     type: 'POST',
     url: '/signup_post',
     data: inputs,
-    success: function(succeeded) {
-      if (succeeded) {
-        return alert('Submit success!');
+    success: function(res) {
+      if (res.success === true) {
+        return alert('Submit success!' + res.message);
       } else {
-        return alert('Submission saving error!');
+        return alert('Submission saving error!' + res.message);
       }
     },
     error: function(err) {
