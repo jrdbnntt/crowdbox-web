@@ -1,3 +1,11 @@
 extend ../layout
 block content
-	h1 #{title}
+	h1 Sign in
+	
+	.form-group
+		label(for="email") Email:
+		input.form-control(type="text", name='email', placeholder="Email")
+	.form-group
+		label(for="password") Password:
+		input.form-control(type="password", name='password', placeholder="Password")
+	button.btn.btn-default(for='submit') Submit

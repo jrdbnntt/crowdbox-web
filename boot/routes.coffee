@@ -24,6 +24,7 @@ module.exports = (app) ->
 	
 	# Signup
 	app.get '/signup', app.PublicController.signup
+	app.post '/signup_post', app.PublicController.signup_post
 	
 	####################################################
 	# User Access

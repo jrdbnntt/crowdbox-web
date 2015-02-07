@@ -4,9 +4,9 @@ module.exports = (app) ->
 	class app.UserController
 		
 		@box = (req, res) ->
-			res.render 'public/box',
+			res.render 'user/box',
 				title: 'Your CrowdBox'
 		
 		@playlist = (req, res) ->
-			res.render 'public/playlist',
-				title: 'Edit Playlis'
+			res.render 'user/playlist',
+				title: 'Edit Playlist'
