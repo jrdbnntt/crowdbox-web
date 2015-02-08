@@ -40,6 +40,8 @@ module.exports = (app) ->
 	app.use require('express').static __dirname + '/../public'
 	app.use validator()
 	app.use bodyParser.json()
+	app.use bodyParser.raw()
+	app.use bodyParser.text()
 	app.use bodyParser.urlencoded {extended: true} 
 	
 	# Development settings
