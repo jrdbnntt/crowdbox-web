@@ -7,7 +7,7 @@ module.exports = (app) ->
 			#create random default edison in parse, then go to '/'
 			edison = 
 				serial: Math.floor(Math.random()*1000000000).toString()
-				usingDefault: true
+				usingDefault: false
 				twilioNumber: '000-000-0000'
 				currentSong: -1 #flag for none
 				currentPlaylist: new Array()

@@ -3,9 +3,9 @@ block content
 	h1 #{data.locationName}
 	
 	h3 Owner: #{data.owner}
-	h3	Twilio: #{data.twilioNumber}
-	h3	Serial: #{data.serial}
-	button.btn.btn-default(name='playlistSwitch') Switch Playlist
+	h3 Twilio: #{data.twilioNumber}
+	h3 Serial: #{data.serial}
+	//- button.btn.btn-default(name='playlistSwitch') Switch Playlist
 	
 	table.table.table-striped
 		thead
@@ -18,23 +18,21 @@ block content
 			if data.songs.length > 0
 				for song in data.songs
 					tr
-						td song.id
-						td song.votes
-						td 
-						td 
+						td #{song.id}
+						td #{song.vote}
 						td: a(target="_blank",href='song.url') View
 						td 
-							button.btn.btn-default(name='upvote') Up
-							button.btn.btn-default(name='downvote') Down
-							button.btn.btn-default(name='remove') Remove
+							form.form-inline(name='songOption', method='get', action='#', role='form', songId='#{song.id}')
+								button.btn.btn-default(name='up', type='submit') Up
+								button.btn.btn-default(name='down', type='submit') Down
+								button.btn.btn-default(name='remove', type='submit') Remove
 			else 
 				tr
 					td(colspan='4', align='center'): i No songs in playlist
 			tr
 				td(colspan='4', align='center')
-					form.form-inline(name='songQuery', method='post', action='#', role='form')
+					form.form-inline(name='songQuery', method='get', action='#', role='form')
 						.form-group
-
 							input.form-control(type="text", name='songQuery', placeholder="Song Title")
 							button.btn.btn-default(name='songQuery', type='submit') Add
 	input#edisonId(type='hidden', value='#{data.edisonId}')

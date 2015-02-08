@@ -7,22 +7,49 @@ For the box info
 
 # Submit song query
 $('form[name="songQuery"]').submit (event) ->
-	event.preventDefault();
 	console.log 'Submitted query'
-	body = 
+	data = 
 		query: $('input[name="songQuery"]').val()
 		edisonId: $('#edisonId').val()
 	
-	if !body.query.trim()
+	if (data.query.trim().length <= 0)
 		alert('Query Required')
 		return
 	
 	$.ajax
 		type: 'post'
-		url: '/user/box_addSong'
-		data: body
+		url: '/box/box_addSong'
+		data: data
 		success: (res)->
 			alert res.message
 		error: (err)->
 			alert 'Error submitting query, try again.'
 	return
+$(document).ready ()->
+	$('form[name="songOption"]').submit (event) ->
+		op = $("button[type=submit][over=true]").attr 'name'
+		console.log 'Submitted ' + op
+		
+		data = 
+			songId: $(this).attr('songId')
+			edisonId: $('#edisonId').val()
+		
+		if op == 'remove'
+			zone = 'user'
+		else
+			zone = 'box'
+		
+		$.ajax
+			type: 'post'
+			url: '/'+zone+'/box_'+op+'Song'
+			data: data
+			success: (res)->
+				alert res.message
+			error: (err)->
+				alert 'Error with preforming '+op+', try again.'
+		return
+
+$('form button[type="submit"]').hover ()->
+		$(this).attr 'over', true
+	, () ->
+		$(this).attr 'over', false

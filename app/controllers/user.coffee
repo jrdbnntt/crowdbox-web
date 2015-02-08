@@ -81,6 +81,29 @@ module.exports = (app) ->
 					message: 'Request submitted. The song will be added soon.'
 		
 		
+		@box_downSong = (req, res)->
+			console.log 'BOX CALL: Downvote song '+req.body.songId+' on '+req.body.edisonId
+			
+			res.send 
+				success: true
+				message: 'Song downvoted!'
+			return
+		
+		@box_upSong = (req, res)->
+			console.log 'BOX CALL: Upvote song '+req.body.songId+' on '+req.body.edisonId
+			res.send 
+				success: true
+				message: 'Song upvoted!'
+			return
+		
+		@box_removeSong = (req, res)->
+			console.log 'BOX CALL: Remove song '+req.body.songId+' from '+req.body.edisonId
+			
+			res.send 
+				success: true
+				message: 'Song removed!'
+			return
+		
 		@playlist = (req, res) ->
 			res.render 'user/playlist',
 				title: 'Edit Playlist'
