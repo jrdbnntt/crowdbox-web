@@ -23,13 +23,13 @@ module.exports = (edison, message) ->
 
 	if message.match(positive)
 		return edison.upvoteCurrentSong().then ->
-				'Thanks! You have upvoted the current song.'
-			, errFn
+			'Thanks! You have upvoted the current song.'
+		, errFn
 
 	else if message.match(negative)
 		return edison.downvoteCurrentSong().then ->
-				'Thanks! You have downvoted the current song.'
-			, errFn
+			'Thanks! You have downvoted the current song.'
+		, errFn
 
 	else if message.match(what)
 		return edison.getCurrentSong().then (song) ->
@@ -40,7 +40,7 @@ module.exports = (edison, message) ->
 		, errFn
 
 	else if (match = message.match(request))
-		song = match[2]
-		return edison.requestSong(song).then ->
-				"Thanks for your request! Your song is queued."
-			, errFn
+		query = match[2]
+		return edison.requestSong(query).then (song)->
+			"Thanks for your request! Your song is queued: #{song.title}"
+		, errFn
