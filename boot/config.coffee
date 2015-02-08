@@ -65,6 +65,8 @@ module.exports = (app) ->
 	# Load email template function
 	app.emailTemplates = emailTemplates
 	
+		
+	
 	###
 	# Sends email using the email-templates and mandrill libraries
 	# @param eName = templateDirName (string)
@@ -154,6 +156,5 @@ module.exports = (app) ->
 	console.log "> SECRET=" + process.env.SECRET
 	console.log '> MANDRILL_KEY=' + process.env.MANDRILL_KEY
 	console.log '-------------------------------'
-		
 		
 			
