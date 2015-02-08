@@ -6,24 +6,35 @@ block content
 	h3	Twilio: #{data.twilioNumber}
 	h3	Serial: #{data.serial}
 	h3	Using Default: #{data.usingDefault}
+	button.btn.btn-default(name='playlistSwitch') Switch Playlist
 	
-	table.table-striped
+	table.table.table-striped
 		thead
 			tr
 				th Title
-				th Adasdasdlbum
 				th Reputation
 				th Youtube
 				th Options
 		tbody
-			for song in data.songs
-				td song.id
-				td song.votes
-				td 
-				td 
-				td: a(href='song.url') View
-				td 
-					button.btn.btn-default(name='upvote') Up
-					button.btn.btn-default(name='downvote') Down
-					button.btn.btn-default(name='remove') Remove
-				
+			if data.songs.length > 0
+				for song in data.songs
+					tr
+						td song.id
+						td song.votes
+						td 
+						td 
+						td: a(target="_blank",href='song.url') View
+						td 
+							button.btn.btn-default(name='upvote') Up
+							button.btn.btn-default(name='downvote') Down
+							button.btn.btn-default(name='remove') Remove
+			else 
+				tr
+					td(colspan='4', align='center'): i No songs in playlist
+			tr
+				td(colspan='4', align='center')
+					form.form-inline
+						.form-group
+							input.form-control(type="text", name='songQuery', placeholder="Song Title")
+							button.btn.btn-default(name='submit', type='submit') Add
+						

@@ -42,7 +42,7 @@ module.exports = (app) ->
 					console.log 'Error loading user'
 					res.render 'user/box',
 						title: title
-			
+		
 		
 		@playlist = (req, res) ->
 			res.render 'user/playlist',
