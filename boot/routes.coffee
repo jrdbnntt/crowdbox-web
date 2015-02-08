@@ -36,6 +36,15 @@ module.exports = (app) ->
 	
 	# Edit Playlist (+ playlist id)
 	app.get '/user/playlist', app.UserController.playlist
+
+	
+	####################################################
+	# Twilio Access
+	####################################################
+	
+	# Receive message
+	app.post '/twilio/receive', app.TwilioController.receive
+
 	
 	
 	

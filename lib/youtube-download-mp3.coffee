@@ -4,7 +4,7 @@ Q = require('q')
 ytdl = require('ytdl-core')
 Ffmpeg = require('fluent-ffmpeg')
 
-module.exports = (url) ->
+module.exports = (url, folder) ->
   console.log "Processing #{url}"
 
   deferred = Q.defer()
@@ -15,7 +15,7 @@ module.exports = (url) ->
       deferred.reject(new Error(err))
       return
 
-    pathToSong = path.join(__dirname, 'tmp', "#{info.video_id}.mp3")
+    pathToSong = path.join(folder, "#{info.video_id}.mp3")
     if not fs.existsSync(pathToSong)
       console.log "Streaming and converting to #{pathToSong}"
       stream = ytdl(url) 
