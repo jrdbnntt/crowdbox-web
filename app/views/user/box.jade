@@ -1,3 +1,29 @@
 extend ../layout
 block content
-	h1 #{title}
+	h1 #{data.locationName}
+	
+	h3 Owner: #{data.owner}
+	h3	Twilio: #{data.twilioNumber}
+	h3	Serial: #{data.serial}
+	h3	Using Default: #{data.usingDefault}
+	
+	table.table-striped
+		thead
+			tr
+				th Title
+				th Adasdasdlbum
+				th Reputation
+				th Youtube
+				th Options
+		tbody
+			for song in data.songs
+				td song.id
+				td song.votes
+				td 
+				td 
+				td: a(href='song.url') View
+				td 
+					button.btn.btn-default(name='upvote') Up
+					button.btn.btn-default(name='downvote') Down
+					button.btn.btn-default(name='remove') Remove
+				

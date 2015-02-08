@@ -21,6 +21,7 @@ module.exports = (app) ->
 	
 	# Signin
 	app.get '/signin', app.PublicController.signin
+	app.post '/signin_post', app.PublicController.signin_post
 	
 	# Signup
 	app.get '/signup', app.PublicController.signup
@@ -36,9 +37,15 @@ module.exports = (app) ->
 	# Edit Playlist (+ playlist id)
 	app.get '/user/playlist', app.UserController.playlist
 	
+	
+	
 	####################################################
 	# Static Pages
 	####################################################
+	# Create new Edison
+	app.get '/parse/createEdison', app.StaticController.createEdison
+	
+	
 	# Page not found (404)
 	# This should always be the LAST route specified
 	app.get '*', (req, res) ->

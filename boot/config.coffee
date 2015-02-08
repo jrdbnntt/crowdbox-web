@@ -27,9 +27,8 @@ module.exports = (app) ->
 	dotenv.load()
 	
 	# Create a Parse (Kaiseki) object
-	app.kaiseki = new Kaiseki process.env.PARSE_APP_ID_TEST, 
-	process.env.PARSE_REST_KEY_TEST
-	app.kaiseki.masterKey = process.env.PARSE_MASTER_KEY_TEST
+	app.kaiseki = new Kaiseki process.env.PARSE_APP_ID, process.env.PARSE_REST_KEY
+	app.kaiseki.masterKey = process.env.PARSE_MASTER_KEY
 
 			
 	# Configure app settings
@@ -145,7 +144,7 @@ module.exports = (app) ->
 	
 	
 	# Enforce ACL (needs to be last)
-	# app.use acl
+	app.use acl
 	
 	#debug crap
 	console.log 'ENV VARS ->'

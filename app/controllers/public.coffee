@@ -18,6 +18,38 @@ module.exports = (app) ->
 		@signin = (req, res) ->
 			res.render 'public/signin',
 				title: 'Sign in'
+		@signin_post = (req, res)->
+			req.session.signin = 0
+			
+			if req.body.email? and
+			req.body.password?
+				# check parse
+				app.kaiseki.loginUser req.body.email, req.body.password,
+					(error, response, body, success) ->
+						# log the result
+						msgs = []
+						
+						if success
+							console.log 'login success'
+							req.session.parseSessionToken = body.sessionToken
+							req.session.firstName = body.firstName
+							req.session.lastName = body.lastName
+							req.session.email = body.email
+							req.session.userId = body.objectId
+							req.session.signin = 1
+							res.redirect '/user/box'
+							
+							console.log JSON.stringify body
+																							
+						else
+							console.log 'login failure'
+							req.session.signin = 0			
+							res.redirect '/signin'
+				
+			else
+				res.redirect '/signin'
+			
+			
 				
 		########################################################		
 		@signup = (req, res) ->
@@ -31,24 +63,23 @@ module.exports = (app) ->
 				lastName: req.body.last_name
 				email: req.body.email
 				password: req.body.password
-				location_name: req.body.location_name
+				locationName: req.body.location_name
+				usingDefault: true
 			
 				#Check if email is user TODO
 			console.log JSON.stringify data, undefined, 2
 			console.log edisonId
 			if data?
 				#Get Edison, then creat account with it
-				param = 
+				app.kaiseki.getObjects 'Edison',
 					where:
 						serial: edisonId
-					order: '-name'
-				app.kaiseki.getObjects 'Edison', param, (err, resp, body, success)->
-					console.log resp
+				, (err, resp, body, success)->
 					if success
 						#make user
 						data.edisonId = edisonId
+						data.username = data.email
 						app.kaiseki.createUser data, (err, resp, body, success)->
-							console.log "CALL "+  success
 							if success
 								res.send 
 									success: true
