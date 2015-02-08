@@ -1,13 +1,22 @@
 extend ../layout
 block content
-	h1 #{data.locationName}
-	
-	h3 Owner: #{data.owner}
+	h1 
+		b
+		if data.locationName
+			|#{data.locationName}
+		else
+			|Top of the Hill
+	h3 Owner: 
+		if data.owner
+			|#{data.owner}
+		else
+			|Guilherme Berger
 	h3 Twilio: #{data.twilioNumber}
+		
 	h3 Serial: #{data.serial}
 	//- button.btn.btn-default(name='playlistSwitch') Switch Playlist
 	
-	table.table.table-striped
+	table.table
 		thead
 			tr
 				th Title
@@ -15,17 +24,19 @@ block content
 				th Youtube
 				th Options
 		tbody
-			if data.songs.length > 0
+			if data.songs && data.songs.length > 0
+				- var n = -1
 				for song in data.songs
-					tr
-						td #{song.id}
-						td #{song.vote}
+					tr(id="song#{++n}")
+						td #{song.title}
+						td #{song.rep}
 						td: a(target="_blank",href='song.url') View
-						td 
-							form.form-inline(name='songOption', method='get', action='#', role='form', songId='#{song.id}')
+						td
+							form.form-inline(name='songOption', method='get', action='#', role='form', songId='http://youtu.be/#{song.id}', index='#{n}')
 								button.btn.btn-default(name='up', type='submit') Up
 								button.btn.btn-default(name='down', type='submit') Down
-								button.btn.btn-default(name='remove', type='submit') Remove
+								if false && data.isOwner
+									button.btn.btn-default(name='remove', type='submit') Remove
 			else 
 				tr
 					td(colspan='4', align='center'): i No songs in playlist

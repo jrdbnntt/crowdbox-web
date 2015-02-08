@@ -28,13 +28,19 @@ $('form[name="songQuery"]').submit(function(event) {
 });
 
 $(document).ready(function() {
+  var currentSong;
+  currentSong = $('#currentSong').val();
+  if (currentSong >= 0) {
+    $('#song' + currentSong).addClass('currentSong');
+  }
   return $('form[name="songOption"]').submit(function(event) {
     var data, op, zone;
     op = $("button[type=submit][over=true]").attr('name');
     console.log('Submitted ' + op);
     data = {
       songId: $(this).attr('songId'),
-      edisonId: $('#edisonId').val()
+      edisonId: $('#edisonId').val(),
+      index: parseInt($(this).attr('index'))
     };
     if (op === 'remove') {
       zone = 'user';

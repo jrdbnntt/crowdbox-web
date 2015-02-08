@@ -2,21 +2,21 @@ positive = /// ^ (
 		up\W?vote
 	| like
 	| love
-	) ///
+	) ///i
 
 negative = /// ^ (
 		down\W?vote
 	| dislike
 	| hate
-	) ///
+	) ///i
 
 what = /// ^ (
 		what
 	| current
 	| wtf
-	) ///
+	) ///i
 
-request = /^(requ?e?s?t?) (.*)/
+request = /^(requ?e?s?t?) (.*)/i
 
 module.exports = (edison, message) ->
 	errFn = -> 'Error, please try again later.'

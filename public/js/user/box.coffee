@@ -26,6 +26,10 @@ $('form[name="songQuery"]').submit (event) ->
 			alert 'Error submitting query, try again.'
 	return
 $(document).ready ()->
+	currentSong = $('#currentSong').val()
+	if currentSong >= 0
+		$('#song'+currentSong).addClass('currentSong')
+	
 	$('form[name="songOption"]').submit (event) ->
 		op = $("button[type=submit][over=true]").attr 'name'
 		console.log 'Submitted ' + op
@@ -33,6 +37,7 @@ $(document).ready ()->
 		data = 
 			songId: $(this).attr('songId')
 			edisonId: $('#edisonId').val()
+			index: parseInt $(this).attr('index')
 		
 		if op == 'remove'
 			zone = 'user'

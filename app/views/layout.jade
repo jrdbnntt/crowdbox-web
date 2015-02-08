@@ -5,9 +5,10 @@ html(lang='en')
 		meta(name='description', content='')
 		meta(name='author', content="")
 
+		link(rel='stylesheet', href='http://fonts.googleapis.com/css?family=Roboto:400,100,300,900,500italic,700italic', type='text/css')
 		link(rel='stylesheet', type='text/css', href='/bower_components/bootstrap/dist/css/bootstrap.min.css')
-		
 		link(rel='stylesheet', type='text/css', href='/css/main.css')
+
 		
 		title CrowdBox | #{title}
 		
@@ -36,13 +37,6 @@ html(lang='en')
 							a(href='/signin') Sign in
 						li
 							a(href='/signup') Sign up
-						
-						//- User only : TODO
-						li
-							a(href='/user/box') Your CrowdBox
-						li
-							a(href='/user/playlist') Edit Playlist
-
 		
 		.container
 			block content

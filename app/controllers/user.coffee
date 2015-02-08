@@ -23,13 +23,11 @@ module.exports = (app) ->
 									serial: body[0].serial
 									locationName: bodyu.locationName
 									owner: bodyu.firstName + " " +  bodyu.lastName
+									edisonId: body[0].objectId
+									songs: body[0].currentPlaylist
+									isOwner: true
 								
-								if data.usingDefault
-									data.songs = body[0].defaultPlaylist
-								else
-									data.songs = body[0].currentPlaylist
-								
-								console.log JSON.stringify data, undefined, 2
+								# console.log JSON.stringify data, undefined, 2
 								
 								res.render 'user/box',
 									title: title
@@ -61,6 +59,7 @@ module.exports = (app) ->
 			# 	else if n < 62 then videoId += String.fromCharCode(48+n-52)
 			
 			# console.log "VID ID=" + videoId
+			console.log JSON.stringify req.body, undefined, 2
 			
 			app.kaiseki.getObject 'Edison', req.body.edisonId, (err, resp, data, success) ->
 				if err or !success
@@ -84,20 +83,43 @@ module.exports = (app) ->
 		@box_downSong = (req, res)->
 			console.log 'BOX CALL: Downvote song '+req.body.songId+' on '+req.body.edisonId
 			
-			res.send 
-				success: true
-				message: 'Song downvoted!'
-			return
+			app.kaiseki.getObject 'Edison', req.body.edisonId, (err, resp, data, success) ->
+				if err or !success
+					console.error(err)
+					res.send
+						success: false
+						message: 'Error preforming song request, try again.'
+					return
+			
+				edison  = new Edison(app.kaiseki, data)
+				edison.downvoteSong(req.body.index)
+					
+				res.send 
+					success: true
+					message: 'Song downvoted!'
+				return
 		
 		@box_upSong = (req, res)->
 			console.log 'BOX CALL: Upvote song '+req.body.songId+' on '+req.body.edisonId
-			res.send 
-				success: true
-				message: 'Song upvoted!'
-			return
+			app.kaiseki.getObject 'Edison', req.body.edisonId, (err, resp, data, success) ->
+				if err or !success
+					console.error(err)
+					res.send
+						success: false
+						message: 'Error preforming song request, try again.'
+					return
+			
+				edison  = new Edison(app.kaiseki, data)
+				edison.upvoteSong(req.body.index)
+			
+				res.send 
+					success: true
+					message: 'Song upvoted!'
+				return
 		
 		@box_removeSong = (req, res)->
 			console.log 'BOX CALL: Remove song '+req.body.songId+' from '+req.body.edisonId
+			
 			
 			res.send 
 				success: true

@@ -20,7 +20,7 @@ module.exports = (url, folder) ->
       console.log "Streaming and converting to #{pathToSong}"
       stream = ytdl(url) 
       new Ffmpeg(source: stream)
-        .setFfmpegPath('/usr/bin/ffmpeg')
+        .setFfmpegPath('/bin/ffmpeg')
         .withAudioCodec('libmp3lame')
         .toFormat('mp3')
         .saveToFile pathToSong

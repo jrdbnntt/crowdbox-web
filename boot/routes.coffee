@@ -16,7 +16,7 @@ module.exports = (app) ->
 	# Search
 	app.get '/search', app.PublicController.search
 	
-	# View
+	# # View
 	app.get '/view', app.PublicController.view
 	
 	# Signin
@@ -39,7 +39,7 @@ module.exports = (app) ->
 	app.post '/user/box_removeSong', app.UserController.box_removeSong
 	
 	# Edit Playlist (+ playlist id)
-	app.get '/user/playlist', app.UserController.playlist
+	# app.get '/user/playlist', app.UserController.playlist
 
 	
 	####################################################
@@ -63,15 +63,3 @@ module.exports = (app) ->
 	app.get '*', (req, res) ->
 		res.render '404', title: 'Error 404'
 		
-		
-		# [
-		# 	{
-		# 		"id":"fhpwCXN5wf",
-		# 		"vote":"2"
-		# 	},
-		# 	{
-		# 		"id":"kx1QBg9war",
-		# 		"vote":"-3"
-		# 	}
-		# ]
-		# 

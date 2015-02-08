@@ -24,3 +24,6 @@ module.exports = (app) ->
 				res.redirect '/'
 				
 			return
+		
+		@edisonSync = (req,res) ->
+			

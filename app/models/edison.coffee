@@ -27,17 +27,24 @@ module.exports =
 		 			deferred.resolve(new Edison(kaiseki, body[0]))
 
 		 	deferred.promise
-
+		
 		upvoteCurrentSong: =>
-			@voteCurrentSong(1)
-
+			@upvoteSong(@obj.currentSong)
 		downvoteCurrentSong: =>
-			@voteCurrentSong(-1)
-
+			@downvoteSong(@obj.currentSong)
+		
+		upvoteSong: (songIndex) =>
+			@voteSong(songIndex, 1)
+		downvoteSong: (songIndex) =>
+			@voteSong(songIndex, -1)
+		
 		voteCurrentSong: (num) =>
+			@voteSong(@obj.currentSong, num)
+		
+		voteSong: (songIndex, num) =>
 			deferred = Q.defer()
 
-			@obj.currentPlaylist[@obj.currentSong].votes += num
+			@obj.currentPlaylist[songIndex].rep += num
 			@kaiseki.updateObject 'Edison', 
 				@obj.objectId,
 				{currentPlaylist: @obj.currentPlaylist},
@@ -48,7 +55,27 @@ module.exports =
 						deferred.resolve(body)
 
 			deferred.promise
-
+		
+		getAll: =>
+			deferred = Q.defer()
+			@kaiseki.getObjects 'Edison', 
+				(err,res,body,success) ->
+					if err
+						deferred.reject(err)
+					else
+						deferred.resolve(body)
+			deferred.promise
+		
+		getAllUsers: =>
+			deferred = Q.defer()
+			@kaiseki.getObjects 'User', 
+				(err,res,body,success) ->
+					if err
+						deferred.reject(err)
+					else
+						deferred.resolve(body)
+			deferred.promise
+		
 		getCurrentSong: =>
 			deferred = Q.defer()
 
@@ -64,17 +91,19 @@ module.exports =
 
 		requestSong: (query) =>
 			deferred = Q.defer()
+			console.log(query)
 			ytSearch(query).then (videoData) ->
 				console.log(videoData)
-				ytDlMp3(videoData.url, path.join(__dirname, '../../tmp'))
+				ytDlMp3(videoData.url, path.join(__dirname, '../../public/tmp'))
 			.then (data) =>
-				@kaisei.createObject 'Song', 
+				@kaiseki.createObject 'Song', 
 					query: query
 					title: data.info.title
 					duration: data.info.length_seconds
 					videoId: data.info.video_id
-				@obj.currentPlaylist.push({id: data.info.video_id, votes: 0})
-				@kaisei.updateObject 'Edison',
+				, (->)
+				@obj.currentPlaylist.push({title: data.info.title, id: data.info.video_id, rep: 0})
+				@kaiseki.updateObject 'Edison',
 					@obj.objectId,
 					{currentPlaylist: @obj.currentPlaylist},
 					(err, res, body, success) ->

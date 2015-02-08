@@ -1,19 +1,49 @@
+Edison = require('../models/edison')
+
 # Any public page
 
 module.exports = (app) ->
 	class app.PublicController
-		
 		@index = (req, res) ->
 			res.render 'public/index',
 				title: 'Home'
 		
 		@search = (req, res) ->
-			res.render 'public/search',
-				title: 'Search for CrowdBox'
+			#Pass all names and edison
+			app.kaiseki.getUsers (err,rese,body,success)->
+				eds = for u in body
+					name: u.locationName
+					serial: u.edisonId
+					owner: u.firstName + " " + u.lastName
+			
+				res.render 'public/search',
+					title: 'Search for A CrowdBox',
+					eds: eds
 		
 		@view = (req, res) ->
-			res.render 'public/view',
-				title: 'View CrowdBox'
+			app.kaiseki.getObject 'Edison',
+				where:
+					serial: req.query['serial']
+				, (error, response, body, success)->
+					if success
+						data = 
+							usingDefault: body[1].usingDefault
+							twilioNumber: body[1].twilioNumber
+							currentSong: body[1].currentSong
+							serial: body[1].serial
+							locationName: req.query['name']
+							owner: req.query['owner']
+							edisonId: body[1].objectId
+							songs: body[1].currentPlaylist
+							isOwner: false
+						
+						res.render 'user/box',
+							title: 'public/view',
+							data: data
+						
+					else
+						console.log 'Error loading playlist'
+						res.redirect '/search'
 				
 		@signin = (req, res) ->
 			res.render 'public/signin',
@@ -99,3 +129,5 @@ module.exports = (app) ->
 					success: false
 					message: "Validation errors: " + util.inspect(errors)
 			return
+			
+		

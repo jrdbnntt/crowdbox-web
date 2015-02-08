@@ -1,0 +1,12 @@
+body {
+	font-family: 'Roboto', sans-serif;
+	color:#FFF;
+	background-color: #2e2b21;
+	font-size: 1.2em;
+}
+
+tr.currentSong {
+	background-color: rgb(158, 217, 240);
+	font-weight: bold;
+}
+
