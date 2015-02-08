@@ -32,3 +32,6 @@ node_modules
 
 #bower
 public/bower_components
+
+#MP3s
+tmp

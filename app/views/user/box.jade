@@ -5,7 +5,6 @@ block content
 	h3 Owner: #{data.owner}
 	h3	Twilio: #{data.twilioNumber}
 	h3	Serial: #{data.serial}
-	h3	Using Default: #{data.usingDefault}
 	button.btn.btn-default(name='playlistSwitch') Switch Playlist
 	
 	table.table.table-striped
@@ -33,8 +32,11 @@ block content
 					td(colspan='4', align='center'): i No songs in playlist
 			tr
 				td(colspan='4', align='center')
-					form.form-inline
+					form.form-inline(name='songQuery', method='post', action='#', role='form')
 						.form-group
+
 							input.form-control(type="text", name='songQuery', placeholder="Song Title")
-							button.btn.btn-default(name='submit', type='submit') Add
-						
+							button.btn.btn-default(name='songQuery', type='submit') Add
+	input#edisonId(type='hidden', value='#{data.edisonId}')
+block localJS
+	script(type="text/javascript", src='/js/user/box.js')

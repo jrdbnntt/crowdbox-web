@@ -33,6 +33,7 @@ module.exports = (app) ->
 	
 	# Edit Crowdbox (as a whole)
 	app.get '/user/box', app.UserController.box
+	app.post '/user/box_addSong', app.UserController.box_addSong
 	
 	# Edit Playlist (+ playlist id)
 	app.get '/user/playlist', app.UserController.playlist
@@ -53,7 +54,6 @@ module.exports = (app) ->
 	####################################################
 	# Create new Edison
 	app.get '/parse/createEdison', app.StaticController.createEdison
-	
 	
 	# Page not found (404)
 	# This should always be the LAST route specified
