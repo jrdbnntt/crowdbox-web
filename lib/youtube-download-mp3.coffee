@@ -15,7 +15,7 @@ module.exports = (url) ->
       deferred.reject(new Error(err))
       return
 
-    pathToSong = path.join(__dirname, 'tmp', "#{info.video_id}.mp3")
+    pathToSong = path.join(__dirname, '../public/songs/', "#{info.video_id}.mp3")
     if not fs.existsSync(pathToSong)
       console.log "Streaming and converting to #{pathToSong}"
       stream = ytdl(url) 
