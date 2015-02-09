@@ -30,7 +30,7 @@ block content
 					tr(id="song#{++n}")
 						td #{song.title}
 						td #{song.rep}
-						td: a(target="_blank",href='song.url') View
+						td: a(target="_blank",href=#{song.url}) View
 						td
 							form.form-inline(name='songOption', method='get', action='#', role='form', songId='http://youtu.be/#{song.id}', index='#{n}')
 								button.btn.btn-default(name='up', type='submit') Up
