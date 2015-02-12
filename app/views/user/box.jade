@@ -22,26 +22,28 @@ block content
 				th Title
 				th Reputation
 				th Youtube
+				th MP3
 				th Options
-		tbody
+		tbodycc
 			if data.songs && data.songs.length > 0
 				- var n = -1
 				for song in data.songs
 					tr(id="song#{++n}")
 						td #{song.title}
 						td #{song.rep}
-						td: a(target="_blank",href='song.url') View
+						td: a(target="_blank",href='http://youtu.be/#{song.id}') Watch
+						td: a(target="_blank",href='/tmp/#{song.id}.mp3') Listen
 						td
-							form.form-inline(name='songOption', method='get', action='#', role='form', songId='http://youtu.be/#{song.id}', index='#{n}')
+							form.form-inline(name='songOption', method='get', action='#', role='form', songId='song.id', index='#{n}')
 								button.btn.btn-default(name='up', type='submit') Up
 								button.btn.btn-default(name='down', type='submit') Down
 								if false && data.isOwner
 									button.btn.btn-default(name='remove', type='submit') Remove
 			else 
 				tr
-					td(colspan='4', align='center'): i No songs in playlist
+					td(colspan='5', align='center'): i No songs in playlist
 			tr
-				td(colspan='4', align='center')
+				td(colspan='5', align='center')
 					form.form-inline(name='songQuery', method='get', action='#', role='form')
 						.form-group
 							input.form-control(type="text", name='songQuery', placeholder="Song Title")
